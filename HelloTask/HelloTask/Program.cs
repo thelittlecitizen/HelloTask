@@ -6,20 +6,21 @@ namespace HelloTask
     
     class Program
     {
-        private static int number;
 
         static void Main(string[] args)
         {
-             DateTime start = DateTime.Now;
+            DateTime start = DateTime.Now;
+
+            //ThreadPool.SetMaxThreads(5, 5);
 
             for (int i = 0; i < 1000000; i++)
             {
-                number = i;
-                Thread thread = new Thread(() => Console.WriteLine(number));
-                thread.Start();
+               int number = i;
+               ThreadPool.QueueUserWorkItem(obj => Console.WriteLine(number));
             }
-           
-           Console.WriteLine((DateTime.Now- start).TotalMilliseconds);
+
+            Console.ReadLine();
+            Console.WriteLine((DateTime.Now- start).TotalMilliseconds);
         }
         
     }
